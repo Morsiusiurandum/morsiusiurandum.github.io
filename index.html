@@ -1,0 +1,122 @@
+<html lang="en" style="background:#050505">
+
+<body>
+<div id=placeholder>
+    <span class=w2 id=era>AD</span>
+    <span class=space id=era-year></span>
+    <span class=w4 id=year>2010</span>
+    <span class=dot id=year-month>.</span>
+    <span class=w2 id=month>12</span>
+    <span class=dot id=month-day>.</span>
+    <span class=w2 id=day>10</span>
+    <span class=space id=date-time></span>
+    <span class=w2 id=hour>11</span>
+    <span class=column id=hour-minute>:</span>
+    <span class=w2 id=minute>29</span>
+    <span class=column id=minute-second>:</span>
+    <span class=w2 id=second>32</span>
+    <span class=column id=second-millisecond>:</span>
+    <span class=w2 id=millisecond>55</span>
+</div>
+<div id=overlay></div>
+</body>
+
+<head>
+    <title>Steins;Gate</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Caladea&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: black;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7vw;
+            font-family: 'Caladea', serif;
+        }
+
+        .w4 {
+            width: 4ex;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .w2 {
+            width: 2ex;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .space {
+            display: inline-block;
+            width: 1ex;
+        }
+
+        #placeholder {
+            transform: scaleX(0.8);
+        }
+
+        #placeholder {
+            color: transparent;
+            text-shadow: 0 0 7px #8994a0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background: black;
+            filter: contrast(2.3) brightness(1.5) saturate(0.55);
+            padding: 0.5ex;
+        }
+
+        #minute-second {
+            margin-left: -12px;
+        }
+
+        #overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black center/cover;
+            mix-blend-mode: screen;
+        }
+    </style>
+    <script>
+        let
+            dy = document.getElementById('year'),
+            dm = document.getElementById('month'),
+            dd = document.getElementById('day'),
+            th = document.getElementById('hour'),
+            tm = document.getElementById('minute'),
+            ts = document.getElementById('second'),
+            tms = document.getElementById('millisecond');
+
+        function pan(x, n) {
+            while (x.toString().length < n) {
+                x = "0" + x;
+            }
+            return x;
+        }
+
+        function step() {
+            let d = new Date();
+            dy.innerText = d.getFullYear().toString();
+            dm.innerText = pan(d.getMonth() + 1, 2);
+            dd.innerText = pan(d.getDate(), 2);
+            th.innerText = pan(d.getHours(), 2);
+            tm.innerText = pan(d.getMinutes(), 2);
+            ts.innerText = pan(d.getSeconds(), 2);
+            tms.innerText = pan(d.getMilliseconds(), 3).toString().substring(0, 2);
+            window.requestAnimationFrame(step);
+        }
+
+        window.requestAnimationFrame(step);
+    </script>
+</head>
+
+</html>
